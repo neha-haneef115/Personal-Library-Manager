@@ -136,14 +136,7 @@ st.markdown("""
         background-color: #00C770;
     }
     
-    .stTextInput>div>div>input, 
-    .stNumberInput>div>div>input {
-        background-color: #1A1D24 !important;
-        color: #000000 !important;
-        border-radius: 8px !important;
-        border: 1px solid #00C770 !important;
-        padding: 12px !important;
-    }
+   
     .st-cm {
     border-bottom-color: #00c770;
 }
@@ -180,35 +173,17 @@ st.markdown("""
     border-color: #00a55a;
    
 }
-input::-webkit-input-placeholder,
-textarea::-webkit-input-placeholder {
-    color: #CCCCCC;
-    opacity: 0.7;
-}
-
-input::-moz-placeholder,
-textarea::-moz-placeholder {
-    color: #CCCCCC;
-    opacity: 0.7;
-}
-
-input:-ms-input-placeholder,
-textarea:-ms-input-placeholder {
-    color: #CCCCCC;
-    opacity: 0.7;
-}
-
+        
 input::placeholder,
 textarea::placeholder {
-    color: #CCCCCC;
-    opacity: 0.7;
+    color: #fff !important;
+    opacity: 0.7 !important;
 }
-
 
 .stTextInput input,
 .stNumberInput input,
 textarea {
-    color: #FFFFFF !important; /* Input text color */
+    color: #FFFFFF !important; 
     background-color: #1A1D24 !important;
     border: 1px solid #00C770 !important;
     border-radius: 8px !important;
