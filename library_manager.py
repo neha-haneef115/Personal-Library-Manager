@@ -180,12 +180,30 @@ st.markdown("""
     border-color: #00a55a;
    
 }
-            /* Input and placeholder text styles */
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: #CCCCCC;
+    opacity: 0.7;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+    color: #CCCCCC;
+    opacity: 0.7;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+    color: #CCCCCC;
+    opacity: 0.7;
+}
+
 input::placeholder,
 textarea::placeholder {
-    color: #CCCCCC !important; /* Placeholder color */
-    opacity: 0.7 !important;
+    color: #CCCCCC;
+    opacity: 0.7;
 }
+
 
 .stTextInput input,
 .stNumberInput input,
