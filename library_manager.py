@@ -271,13 +271,7 @@ textarea {
         border-top: 1px solid #00C770;
         z-index: 100;
     }
-            .st-dc.st-dd.st-de.st-df.st-di.st-dj.st-c5.st-dk.st-dl {
-        background-color: #00a55a !important;
-      
-    }
-            .st-ca {
-    background-color: #00a55a !important ;
-}
+    
     
     p {
         color: #FFFFFF !important;
