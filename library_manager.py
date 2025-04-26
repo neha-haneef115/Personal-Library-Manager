@@ -133,7 +133,9 @@ st.markdown("""
     }
     
     .stProgress>div>div>div {
-        background-color: #00C770;
+      
+    background-color: rgba(250, 250, 250, 0.2);
+}
     }
     
    
@@ -179,6 +181,9 @@ textarea::placeholder {
     color: #fff !important;
     opacity: 0.7 !important;
 }
+            .st-ca {
+    background-color: #00a55a;
+}
 
 .stTextInput input,
 .stNumberInput input,
@@ -208,7 +213,7 @@ textarea {
 }
     
    .stCheckbox input[type="checkbox"]:hover {
-    border-color: #000000 !important; /* Change border color on hover */
+    border-color: #000000 !important;
 }
     .divider {
         height: 1px;
@@ -250,7 +255,34 @@ textarea {
         border-bottom: 1px solid rgba(0, 199, 112, 0.3);
         text-align: center;
     }
+            .st-bs {
+    color: rgb(219 219 219);
+}
+
+
+.st-bh {
+    background-color: rgb(25 29 36);
+}
+    .st-bd {
+    background-color:#00a55a;
+}
+            
+            .st-eo {
+    border-bottom-color: #00a55a;
+}
+
+
+.st-en {
+    border-top-color: #00a55a;
     
+}
+
+.st-em {
+    border-right-color: #00a55a;
+}
+.st-el {
+    border-left-color: rgba(49, 51, 63, 0.4);
+}
    .footer {
        
         left: 0;
@@ -283,13 +315,14 @@ def save_library():
     with open(LIBRARY_FILE, 'w') as file:
         json.dump(st.session_state.library, file, indent=4)
 
-def add_book(title, author, year, genre, read_status):
+def add_book(title, author, year, genre, read_status, percentage_read=0):
     new_book = {
         'title': title,
         'author': author,
         'year': year,
         'genre': genre,
         'read': read_status,
+        'percentage_read': percentage_read,
         'date_added': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
     st.session_state.library.append(new_book)
@@ -328,7 +361,13 @@ def get_library_stats():
     total_books = len(st.session_state.library)
     read_books = sum(1 for book in st.session_state.library if book['read'])
     unread_books = total_books - read_books
+    
     percentage_read = (read_books / total_books * 100) if total_books > 0 else 0
+    
+    average_percentage = 0
+    if total_books > 0:
+        total_percentage = sum(book.get('percentage_read', 100 if book['read'] else 0) for book in st.session_state.library)
+        average_percentage = total_percentage / total_books
     
     genres = {}
     for book in st.session_state.library:
@@ -342,6 +381,7 @@ def get_library_stats():
         'read_books': read_books,
         'unread_books': unread_books,
         'percentage_read': percentage_read,
+        'average_percentage': average_percentage,
         'most_common_genre': most_common_genre
     }
 
@@ -376,6 +416,7 @@ if menu == "Home":
         for book in st.session_state.library:
             read_status = "Read" if book['read'] else "Unread"
             status_class = "status-read" if book['read'] else "status-unread"
+            percentage = book.get('percentage_read', 100 if book['read'] else 0)
             
             with st.container():
                 st.markdown(f"""
@@ -385,7 +426,13 @@ if menu == "Home":
                     <p><b>Year:</b> {book['year']} | <b>Genre:</b> {book['genre']}</p>
                     <div style="margin-top:12px;">
                         <span class="{status_class}">{read_status}</span>
+                        <span style="margin-left:10px;">{percentage}% completed</span>
                     </div>
+                """, unsafe_allow_html=True)
+                
+                st.progress(percentage/100)
+                
+                st.markdown(f"""
                     <p style="margin-top:18px; font-size:0.85rem; color:#B0B0B0;">Added on: {book['date_added']}</p>
                 </div>
                 """, unsafe_allow_html=True)
@@ -409,10 +456,11 @@ elif menu == "Add Book":
                  "Mystery", "Romance", "Biography", "History", "Other"]
             )
             read_status = st.checkbox("I have read this book")
+            percentage_read = st.slider("Reading Progress (%)", 0, 100, 0)
         
-        if st.form_submit_button("Add Book" ):
+        if st.form_submit_button("Add Book"):
             if title and author:
-                add_book(title, author, year, genre, read_status)
+                add_book(title, author, year, genre, read_status, percentage_read)
             else:
                 st.error("Please fill in all required fields (marked with *)")
 
@@ -458,6 +506,7 @@ elif menu == "Search Books":
                 for book in results:
                     read_status = "Read" if book['read'] else "Unread"
                     status_class = "status-read" if book['read'] else "status-unread"
+                    percentage = book.get('percentage_read', 100 if book['read'] else 0)
                     
                     with st.container():
                         st.markdown(f"""
@@ -467,7 +516,13 @@ elif menu == "Search Books":
                             <p><b>Year:</b> {book['year']} | <b>Genre:</b> {book['genre']}</p>
                             <div style="margin-top:12px;">
                                 <span class="{status_class}">{read_status}</span>
+                                <span style="margin-left:10px;">{percentage}% completed</span>
                             </div>
+                        """, unsafe_allow_html=True)
+                        
+                        st.progress(percentage/100)
+                        
+                        st.markdown(f"""
                             <p style="margin-top:18px; font-size:0.85rem; color:#B0B0B0;">Added on: {book['date_added']}</p>
                         </div>
                         """, unsafe_allow_html=True)
@@ -524,11 +579,19 @@ elif menu == "Statistics":
         
         st.markdown("""
         <div class="stat-card">
-            <h4>Reading Progress</h4>
+            <h4>Reading Progress (Books Marked as Read)</h4>
         </div>
         """, unsafe_allow_html=True)
-        st.progress(int(stats['percentage_read']))
-        st.markdown(f"<p style='text-align:center; font-size:18px; margin-top:15px; color:#FFFFFF;'>{stats['percentage_read']:.1f}% of your books have been read</p>", unsafe_allow_html=True)
+        st.progress(int(stats['percentage_read'])/100)
+        st.markdown(f"<p style='text-align:center; font-size:18px; margin-top:15px; color:#FFFFFF;'>{stats['percentage_read']:.1f}% of your books have been marked as read</p>", unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="stat-card">
+            <h4>Overall Reading Progress</h4>
+        </div>
+        """, unsafe_allow_html=True)
+        st.progress(int(stats['average_percentage'])/100)
+        st.markdown(f"<p style='text-align:center; font-size:18px; margin-top:15px; color:#FFFFFF;'>You've read {stats['average_percentage']:.1f}% of your entire library</p>", unsafe_allow_html=True)
         
         st.markdown(f"""
         <div class="stat-card">
@@ -536,6 +599,7 @@ elif menu == "Statistics":
             <div class="stat-value">{stats['most_common_genre']}</div>
         </div>
         """, unsafe_allow_html=True)
+
 st.markdown("""
 <div class="footer">
     <p>My Personal Library App • Made by Neha Haneef</p>
