@@ -14,66 +14,140 @@ LIBRARY_FILE = "library.json"
 
 st.markdown("""
 <style>
-    .stApp {
-        background-color: #0B0C10;
-        color: #FFFFFF;
+    
+    :root {
+        --background-dark: #0B0C10;
+        --card-background: #1A1D24;
+        --text-light: #D5D8E5;
+        --accent-green: #00C770;
+        --accent-green-hover: #00A55A;
     }
     
-   [data-testid="stSidebar"] {
-    background-color: #0B0C10 !important;
-    border-right: 1px solid #00C770 !important;
-}
+    
+    .stApp {
+        background-color: var(--background-dark);
+        color: var(--text-light);
+    }
+    
+    
+    [data-testid="stSidebar"] {
+        background-color: var(--background-dark);
+        border-right: 1px solid var(--accent-green);
+    }
+    
+    
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--accent-green);
+        font-family: 'Georgia', serif;
+    }
     
     h1 {
-        color: #00C770;
         text-align: center;
-        font-family: 'Georgia', serif;
         font-weight: 700;
         letter-spacing: 0.5px;
         margin-bottom: 25px;
     }
     
     h2 {
-        color: #00C770;
-        border-bottom: 2px solid #00C770;
+        border-bottom: 2px solid var(--accent-green);
         padding-bottom: 8px;
-        font-family: 'Georgia', serif;
     }
     
-    h3 {
-        color: #00C770;
-        font-family: 'Georgia', serif;
+    
+    p, span, div, label {
+        color: rgb(179 179 179) !important;
     }
     
-    .stButton>button {
-        background-color: #00C770;
-        color: #0B0C10;
-        border-radius: 8px;
-        border: none;
-        padding: 10px 20px;
-        font-weight: 600;
-        transition: all 0.3s;
+    
+    .stTextInput input,
+    .stNumberInput input,
+    textarea,
+    .stSelectbox > div > div,
+    .stMultiselect > div > div {
+        color: var(--text-light) !important;
+        background-color: var(--card-background) !important;
+        border: 1px solid var(--accent-green) !important;
+        border-radius: 8px !important;
+        padding: 12px !important;
     }
     
-    .stButton>button:hover {
-        background-color: #00A55A;
-        color: #FFFFFF;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    
+    .st-bo {
+        color: var(--text-light) !important;
     }
+    
+    .st-bh {
+        background-color: var(--card-background);
+    }
+    
+    
+    .st-bs {
+        color: var(--text-light);
+    }
+    
+    
+    input::placeholder,
+    textarea::placeholder {
+        color: var(--text-light) !important;
+        opacity: 0.7 !important;
+    }
+
+    .st-emotion-cache-1py5frv {
+        border-style: solid;
+        border-color: var(--accent-green);
+    }
+    
+    
+    .stRadio > div > label, 
+    .stCheckbox > label {
+        color: var(--text-light) !important;
+    }
+    
+
+    .st-el, .st-em, .st-en, .st-eo, 
+    .st-cl, .st-cm, .st-cw, .st-cx, .st-ck {
+        border-color: var(--accent-green);
+    }
+    
+    
+    .stButton > button,
+    .stFormSubmitButton > button {
+        background-color: var(--accent-green) !important;
+        color: var(--background-dark) !important;
+        border-radius: 8px !important;
+        border: none !important;
+        padding: 10px 20px !important;
+        font-weight: 600 !important;
+        transition: all 0.3s !important;
+    }
+    
+    .stButton > button:hover,
+    .stFormSubmitButton > button:hover {
+        background-color: var(--accent-green-hover) !important;
+        color: var(--text-light) !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+    }
+    
+    
+    .stProgress > div > div > div {
+        background-color: rgba(250, 250, 250, 0.2);
+    }
+    
+    .st-ca, .st-fc, .st-bd {
+        background-color: var(--accent-green);
+    }
+    
     
     .book-card {
-        background-color: #1A1D24;
-        color: #FFFFFF;
+        background-color: var(--card-background);
+        color: var(--text-light);
         border-radius: 10px;
         padding: 20px;
         margin-bottom: 20px;
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        border-left: 5px solid #00C770;
+        border-left: 5px solid var(--accent-green);
         transition: all 0.3s;
     }
-            .st-bo {
-    color: #00a55a  !important;
-}
     
     .book-card:hover {
         box-shadow: 0 8px 15px rgba(0,0,0,0.3);
@@ -83,41 +157,27 @@ st.markdown("""
     .status-read {
         display: inline-block;
         background-color: rgba(0, 199, 112, 0.2);
-        color: #00C770;
+        color: var(--accent-green);
         padding: 6px 14px;
         border-radius: 20px;
         font-size: 0.85rem;
         font-weight: 600;
     }
-            .stFormSubmitButton>button {
-    background-color: #00C770 !important;
-    color: #0B0C10 !important;
-    border-radius: 8px !important;
-    border: none !important;
-    padding: 10px 20px !important;
-    font-weight: 600 !important;
-    transition: all 0.3s !important;
-}
-
-.stFormSubmitButton>button:hover {
-    background-color: #00A55A !important;
-    color: #FFFFFF !important;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
-}
     
     .status-unread {
         display: inline-block;
         background-color: rgba(255, 255, 255, 0.2);
-        color: #FFFFFF;
+        color: var(--text-light);
         padding: 6px 14px;
         border-radius: 20px;
-        font-size: 1rem;
+        font-size: 0.85rem;
         font-weight: 600;
     }
     
+
     .stat-card {
-        background-color: #1A1D24;
-        color: #FFFFFF;
+        background-color: var(--card-background);
+        color: var(--text-light);
         border-radius: 10px;
         padding: 15px;
         margin: 10px 0;
@@ -129,162 +189,45 @@ st.markdown("""
         font-size: 1.9rem;
         font-weight: 600;
         margin: 10px 0;
-        color: #00C770;
+        color: var(--accent-green);
     }
     
-    .stProgress>div>div>div {
-      
-    background-color: rgba(250, 250, 250, 0.2);
-}
-    }
     
-   
-    .st-cm {
-    border-bottom-color: #00c770;
-}
-
-.st-cx {
-    border-right-color: #00a55a;
-}
-
-
-.st-cw {
-    border-left-color: #00a55a;
-}
-.st-cl {
-    border-top-color: #00c770;
-}
-
-.st-ck {
-    border-right-color: #00a55a;
-}
-.st-bd {
-    background-color:#1A1D24;
-}
-            .st-cl {
-    border-bottom-color: #00a55a;
-}
-     .st-emotion-cache-1iowko5 {
-    color: rgb(240, 242, 246);
-    background-color: #1A1D24;
-}       
-
-            .st-emotion-cache-1py5frv {
-
-    border-style: solid;
-    border-color: #00a55a;
-   
-}
-        
-input::placeholder,
-textarea::placeholder {
-    color: #fff !important;
-    opacity: 0.7 !important;
-}
-            .st-ca {
-    background-color: #00a55a;
-}
-
-.stTextInput input,
-.stNumberInput input,
-textarea {
-    color: #FFFFFF !important; 
-    background-color: #1A1D24 !important;
-    border: 1px solid #00C770 !important;
-    border-radius: 8px !important;
-    padding: 12px !important;
-}
-
-            .st-bo {
-    color: rgb(213, 218, 229);
-}
-.st-cj {
-    border-color: #00a55a;
-}
-    .stRadio>div>label {
-        color: #FFFFFF !important;
-    }
-    
-    .stCheckbox>label {
-        color: #FFFFFF !important;
-    }
-            .st-fc {
-    background-color: #00a55a;
-}
-    
-   .stCheckbox input[type="checkbox"]:hover {
-    border-color: #000000 !important;
-}
-    .divider {
-        height: 1px;
-        background: linear-gradient(to right, transparent, #00C770, transparent);
-        margin: 25px 0;
-    }
-    
-    .info-message {
-        background-color: rgba(0, 199, 112, 0.1);
-        border-left: 5px solid #00C770;
+    .info-message, .success-box, .warning-box {
         padding: 18px;
         border-radius: 8px;
         margin: 20px 0;
-        color: #FFFFFF;
+        color: var(--text-light);
     }
     
-    .success-box {
+    .info-message, .success-box {
         background-color: rgba(0, 199, 112, 0.1);
-        border-left: 5px solid #00C770;
-        padding: 18px;
-        border-radius: 8px;
-        margin: 20px 0;
-        color: #FFFFFF;
+        border-left: 5px solid var(--accent-green);
     }
     
     .warning-box {
         background-color: rgba(255, 255, 255, 0.1);
-        border-left: 5px solid #FFFFFF;
-        padding: 18px;
-        border-radius: 8px;
-        margin: 20px 0;
-        color: #FFFFFF;
+        border-left: 5px solid var(--text-light);
     }
     
+    
+    .divider {
+        height: 1px;
+        background: linear-gradient(to right, transparent, var(--accent-green), transparent);
+        margin: 25px 0;
+    }
+    
+    
     .sidebar-header {
-        color: #00C770;
+        color: var(--accent-green);
         padding-bottom: 15px;
         margin-bottom: 25px;
         border-bottom: 1px solid rgba(0, 199, 112, 0.3);
         text-align: center;
     }
-            .st-bs {
-    color: rgb(219 219 219);
-}
-
-
-.st-bh {
-    background-color: rgb(25 29 36);
-}
-    .st-bd {
-    background-color:#00a55a;
-}
-            
-            .st-eo {
-    border-bottom-color: #00a55a;
-}
-
-
-.st-en {
-    border-top-color: #00a55a;
     
-}
-
-.st-em {
-    border-right-color: #00a55a;
-}
-.st-el {
-    border-left-color: rgba(49, 51, 63, 0.4);
-}
-   .footer {
-       
+    
+    .footer {
         left: 0;
         bottom: 0;
         width: 100%;
@@ -292,14 +235,9 @@ textarea {
         color: #7F8C8D;
         font-size: 0.9rem;
         padding: 10px 0;
-        background-color: #0B0C10;
-        border-top: 1px solid #00C770;
+        background-color: var(--background-dark);
+        border-top: 1px solid var(--accent-green);
         z-index: 100;
-    }
-    
-    
-    p {
-        color: #FFFFFF !important;
     }
 </style>
 """, unsafe_allow_html=True)
