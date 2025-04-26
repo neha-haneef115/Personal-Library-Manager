@@ -1,3 +1,4 @@
+
 import streamlit as st
 import json
 import os
@@ -14,140 +15,66 @@ LIBRARY_FILE = "library.json"
 
 st.markdown("""
 <style>
-    
-    :root {
-        --background-dark: #0B0C10;
-        --card-background: #1A1D24;
-        --text-light: #D5D8E5;
-        --accent-green: #00C770;
-        --accent-green-hover: #00A55A;
-    }
-    
-    
     .stApp {
-        background-color: var(--background-dark);
-        color: var(--text-light);
+        background-color: #0B0C10;
+        color: #FFFFFF;
     }
     
-    
-    [data-testid="stSidebar"] {
-        background-color: var(--background-dark);
-        border-right: 1px solid var(--accent-green);
-    }
-    
-    
-    h1, h2, h3, h4, h5, h6 {
-        color: var(--accent-green);
-        font-family: 'Georgia', serif;
-    }
+   [data-testid="stSidebar"] {
+    background-color: #0B0C10 !important;
+    border-right: 1px solid #00C770 !important;
+}
     
     h1 {
+        color: #00C770;
         text-align: center;
+        font-family: 'Georgia', serif;
         font-weight: 700;
         letter-spacing: 0.5px;
         margin-bottom: 25px;
     }
     
     h2 {
-        border-bottom: 2px solid var(--accent-green);
+        color: #00C770;
+        border-bottom: 2px solid #00C770;
         padding-bottom: 8px;
+        font-family: 'Georgia', serif;
     }
     
-    
-    p, span, div, label {
-        color: rgb(179 179 179) !important;
+    h3 {
+        color: #00C770;
+        font-family: 'Georgia', serif;
     }
     
-    
-    .stTextInput input,
-    .stNumberInput input,
-    textarea,
-    .stSelectbox > div > div,
-    .stMultiselect > div > div {
-        color: var(--text-light) !important;
-        background-color: var(--card-background) !important;
-        border: 1px solid var(--accent-green) !important;
-        border-radius: 8px !important;
-        padding: 12px !important;
+    .stButton>button {
+        background-color: #00C770;
+        color: #0B0C10;
+        border-radius: 8px;
+        border: none;
+        padding: 10px 20px;
+        font-weight: 600;
+        transition: all 0.3s;
     }
     
-    
-    .st-bo {
-        color: var(--text-light) !important;
+    .stButton>button:hover {
+        background-color: #00A55A;
+        color: #FFFFFF;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
-    
-    .st-bh {
-        background-color: var(--card-background);
-    }
-    
-    
-    .st-bs {
-        color: var(--text-light);
-    }
-    
-    
-    input::placeholder,
-    textarea::placeholder {
-        color: var(--text-light) !important;
-        opacity: 0.7 !important;
-    }
-
-    .st-emotion-cache-1py5frv {
-        border-style: solid;
-        border-color: var(--accent-green);
-    }
-    
-    
-    .stRadio > div > label, 
-    .stCheckbox > label {
-        color: var(--text-light) !important;
-    }
-    
-
-    .st-el, .st-em, .st-en, .st-eo, 
-    .st-cl, .st-cm, .st-cw, .st-cx, .st-ck {
-        border-color: var(--accent-green);
-    }
-    
-    
-    .stButton > button,
-    .stFormSubmitButton > button {
-        background-color: var(--accent-green) !important;
-        color: var(--background-dark) !important;
-        border-radius: 8px !important;
-        border: none !important;
-        padding: 10px 20px !important;
-        font-weight: 600 !important;
-        transition: all 0.3s !important;
-    }
-    
-    .stButton > button:hover,
-    .stFormSubmitButton > button:hover {
-        background-color: var(--accent-green-hover) !important;
-        color: var(--text-light) !important;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
-    }
-    
-    
-    .stProgress > div > div > div {
-        background-color: rgba(250, 250, 250, 0.2);
-    }
-    
-    .st-ca, .st-fc, .st-bd {
-        background-color: var(--accent-green);
-    }
-    
     
     .book-card {
-        background-color: var(--card-background);
-        color: var(--text-light);
+        background-color: #1A1D24;
+        color: #FFFFFF;
         border-radius: 10px;
         padding: 20px;
         margin-bottom: 20px;
         box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        border-left: 5px solid var(--accent-green);
+        border-left: 5px solid #00C770;
         transition: all 0.3s;
     }
+            .st-bo {
+    color: #00a55a  !important;
+}
     
     .book-card:hover {
         box-shadow: 0 8px 15px rgba(0,0,0,0.3);
@@ -157,27 +84,41 @@ st.markdown("""
     .status-read {
         display: inline-block;
         background-color: rgba(0, 199, 112, 0.2);
-        color: var(--accent-green);
+        color: #00C770;
         padding: 6px 14px;
         border-radius: 20px;
         font-size: 0.85rem;
         font-weight: 600;
     }
+            .stFormSubmitButton>button {
+    background-color: #00C770 !important;
+    color: #0B0C10 !important;
+    border-radius: 8px !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s !important;
+}
+
+.stFormSubmitButton>button:hover {
+    background-color: #00A55A !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+}
     
     .status-unread {
         display: inline-block;
         background-color: rgba(255, 255, 255, 0.2);
-        color: var(--text-light);
+        color: #FFFFFF;
         padding: 6px 14px;
         border-radius: 20px;
-        font-size: 0.85rem;
+        font-size: 1rem;
         font-weight: 600;
     }
     
-
     .stat-card {
-        background-color: var(--card-background);
-        color: var(--text-light);
+        background-color: #1A1D24;
+        color: #FFFFFF;
         border-radius: 10px;
         padding: 15px;
         margin: 10px 0;
@@ -189,45 +130,130 @@ st.markdown("""
         font-size: 1.9rem;
         font-weight: 600;
         margin: 10px 0;
-        color: var(--accent-green);
+        color: #00C770;
     }
     
+    .stProgress>div>div>div {
+        background-color: #00C770;
+    }
     
-    .info-message, .success-box, .warning-box {
+   
+    .st-cm {
+    border-bottom-color: #00c770;
+}
+
+.st-cx {
+    border-right-color: #00a55a;
+}
+
+
+.st-cw {
+    border-left-color: #00a55a;
+}
+.st-cl {
+    border-top-color: #00c770;
+}
+
+.st-ck {
+    border-right-color: #00a55a;
+}
+.st-bd {
+    background-color:#1A1D24;
+}
+            .st-cl {
+    border-bottom-color: #00a55a;
+}
+     .st-emotion-cache-1iowko5 {
+    color: rgb(240, 242, 246);
+    background-color: #1A1D24;
+}       
+
+            .st-emotion-cache-1py5frv {
+
+    border-style: solid;
+    border-color: #00a55a;
+   
+}
+        
+input::placeholder,
+textarea::placeholder {
+    color: #fff !important;
+    opacity: 0.7 !important;
+}
+
+.stTextInput input,
+.stNumberInput input,
+textarea {
+    color: #FFFFFF !important; 
+    background-color: #1A1D24 !important;
+    border: 1px solid #00C770 !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+}
+
+            .st-bo {
+    color: rgb(213, 218, 229);
+}
+.st-cj {
+    border-color: #00a55a;
+}
+    .stRadio>div>label {
+        color: #FFFFFF !important;
+    }
+    
+    .stCheckbox>label {
+        color: #FFFFFF !important;
+    }
+            .st-fc {
+    background-color: #00a55a;
+}
+    
+   .stCheckbox input[type="checkbox"]:hover {
+    border-color: #000000 !important; /* Change border color on hover */
+}
+    .divider {
+        height: 1px;
+        background: linear-gradient(to right, transparent, #00C770, transparent);
+        margin: 25px 0;
+    }
+    
+    .info-message {
+        background-color: rgba(0, 199, 112, 0.1);
+        border-left: 5px solid #00C770;
         padding: 18px;
         border-radius: 8px;
         margin: 20px 0;
-        color: var(--text-light);
+        color: #FFFFFF;
     }
     
-    .info-message, .success-box {
+    .success-box {
         background-color: rgba(0, 199, 112, 0.1);
-        border-left: 5px solid var(--accent-green);
+        border-left: 5px solid #00C770;
+        padding: 18px;
+        border-radius: 8px;
+        margin: 20px 0;
+        color: #FFFFFF;
     }
     
     .warning-box {
         background-color: rgba(255, 255, 255, 0.1);
-        border-left: 5px solid var(--text-light);
+        border-left: 5px solid #FFFFFF;
+        padding: 18px;
+        border-radius: 8px;
+        margin: 20px 0;
+        color: #FFFFFF;
     }
-    
-    
-    .divider {
-        height: 1px;
-        background: linear-gradient(to right, transparent, var(--accent-green), transparent);
-        margin: 25px 0;
-    }
-    
     
     .sidebar-header {
-        color: var(--accent-green);
+        color: #00C770;
         padding-bottom: 15px;
         margin-bottom: 25px;
         border-bottom: 1px solid rgba(0, 199, 112, 0.3);
         text-align: center;
     }
     
-    
-    .footer {
+   .footer {
+       
         left: 0;
         bottom: 0;
         width: 100%;
@@ -235,9 +261,14 @@ st.markdown("""
         color: #7F8C8D;
         font-size: 0.9rem;
         padding: 10px 0;
-        background-color: var(--background-dark);
-        border-top: 1px solid var(--accent-green);
+        background-color: #0B0C10;
+        border-top: 1px solid #00C770;
         z-index: 100;
+    }
+    
+    
+    p {
+        color: #FFFFFF !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -253,14 +284,13 @@ def save_library():
     with open(LIBRARY_FILE, 'w') as file:
         json.dump(st.session_state.library, file, indent=4)
 
-def add_book(title, author, year, genre, read_status, percentage_read=0):
+def add_book(title, author, year, genre, read_status):
     new_book = {
         'title': title,
         'author': author,
         'year': year,
         'genre': genre,
         'read': read_status,
-        'percentage_read': percentage_read,
         'date_added': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
     st.session_state.library.append(new_book)
@@ -299,13 +329,7 @@ def get_library_stats():
     total_books = len(st.session_state.library)
     read_books = sum(1 for book in st.session_state.library if book['read'])
     unread_books = total_books - read_books
-    
     percentage_read = (read_books / total_books * 100) if total_books > 0 else 0
-    
-    average_percentage = 0
-    if total_books > 0:
-        total_percentage = sum(book.get('percentage_read', 100 if book['read'] else 0) for book in st.session_state.library)
-        average_percentage = total_percentage / total_books
     
     genres = {}
     for book in st.session_state.library:
@@ -319,7 +343,6 @@ def get_library_stats():
         'read_books': read_books,
         'unread_books': unread_books,
         'percentage_read': percentage_read,
-        'average_percentage': average_percentage,
         'most_common_genre': most_common_genre
     }
 
@@ -354,7 +377,6 @@ if menu == "Home":
         for book in st.session_state.library:
             read_status = "Read" if book['read'] else "Unread"
             status_class = "status-read" if book['read'] else "status-unread"
-            percentage = book.get('percentage_read', 100 if book['read'] else 0)
             
             with st.container():
                 st.markdown(f"""
@@ -364,13 +386,7 @@ if menu == "Home":
                     <p><b>Year:</b> {book['year']} | <b>Genre:</b> {book['genre']}</p>
                     <div style="margin-top:12px;">
                         <span class="{status_class}">{read_status}</span>
-                        <span style="margin-left:10px;">{percentage}% completed</span>
                     </div>
-                """, unsafe_allow_html=True)
-                
-                st.progress(percentage/100)
-                
-                st.markdown(f"""
                     <p style="margin-top:18px; font-size:0.85rem; color:#B0B0B0;">Added on: {book['date_added']}</p>
                 </div>
                 """, unsafe_allow_html=True)
@@ -394,11 +410,10 @@ elif menu == "Add Book":
                  "Mystery", "Romance", "Biography", "History", "Other"]
             )
             read_status = st.checkbox("I have read this book")
-            percentage_read = st.slider("Reading Progress (%)", 0, 100, 0)
         
-        if st.form_submit_button("Add Book"):
+        if st.form_submit_button("Add Book" ):
             if title and author:
-                add_book(title, author, year, genre, read_status, percentage_read)
+                add_book(title, author, year, genre, read_status)
             else:
                 st.error("Please fill in all required fields (marked with *)")
 
@@ -444,7 +459,6 @@ elif menu == "Search Books":
                 for book in results:
                     read_status = "Read" if book['read'] else "Unread"
                     status_class = "status-read" if book['read'] else "status-unread"
-                    percentage = book.get('percentage_read', 100 if book['read'] else 0)
                     
                     with st.container():
                         st.markdown(f"""
@@ -454,13 +468,7 @@ elif menu == "Search Books":
                             <p><b>Year:</b> {book['year']} | <b>Genre:</b> {book['genre']}</p>
                             <div style="margin-top:12px;">
                                 <span class="{status_class}">{read_status}</span>
-                                <span style="margin-left:10px;">{percentage}% completed</span>
                             </div>
-                        """, unsafe_allow_html=True)
-                        
-                        st.progress(percentage/100)
-                        
-                        st.markdown(f"""
                             <p style="margin-top:18px; font-size:0.85rem; color:#B0B0B0;">Added on: {book['date_added']}</p>
                         </div>
                         """, unsafe_allow_html=True)
@@ -517,19 +525,11 @@ elif menu == "Statistics":
         
         st.markdown("""
         <div class="stat-card">
-            <h4>Reading Progress (Books Marked as Read)</h4>
+            <h4>Reading Progress</h4>
         </div>
         """, unsafe_allow_html=True)
-        st.progress(int(stats['percentage_read'])/100)
-        st.markdown(f"<p style='text-align:center; font-size:18px; margin-top:15px; color:#FFFFFF;'>{stats['percentage_read']:.1f}% of your books have been marked as read</p>", unsafe_allow_html=True)
-        
-        st.markdown("""
-        <div class="stat-card">
-            <h4>Overall Reading Progress</h4>
-        </div>
-        """, unsafe_allow_html=True)
-        st.progress(int(stats['average_percentage'])/100)
-        st.markdown(f"<p style='text-align:center; font-size:18px; margin-top:15px; color:#FFFFFF;'>You've read {stats['average_percentage']:.1f}% of your entire library</p>", unsafe_allow_html=True)
+        st.progress(int(stats['percentage_read']))
+        st.markdown(f"<p style='text-align:center; font-size:18px; margin-top:15px; color:#FFFFFF;'>{stats['percentage_read']:.1f}% of your books have been read</p>", unsafe_allow_html=True)
         
         st.markdown(f"""
         <div class="stat-card">
@@ -537,7 +537,6 @@ elif menu == "Statistics":
             <div class="stat-value">{stats['most_common_genre']}</div>
         </div>
         """, unsafe_allow_html=True)
-
 st.markdown("""
 <div class="footer">
     <p>My Personal Library App • Made by Neha Haneef</p>
